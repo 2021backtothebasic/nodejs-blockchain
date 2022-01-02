@@ -1,7 +1,7 @@
 class Blockchain{
-	construcor(){
-	this.chain = [];
-	this.newTransactions = [];
+	constructor(){
+		this.chain = [];
+		this.newTransactions = [];
 	}
 }
 
@@ -9,15 +9,15 @@ Blockchain.prototype.createNewBlock = function (
 	nonce, previousBlockHash, hash){
 		const newBlock = {
 			index: this.chain.length +1,
-			timestamp: Date.new(),
-			transactions: this.newTransaction,
+			timestamp: Date.now(),
+			transactions: this.newTransactions,
 			nonce: nonce,
 			hash: hash,
 			previouseBlockHash: previousBlockHash,
 		};
 		this.newTransacion = [];
-		tihs.chain.push(newBlock);
+		this.chain.push(newBlock);
 		return newBlock;
-		
-		
 }
+
+module.exports = Blockchain;

@@ -1,3 +1,5 @@
+const sha256 = require("sha256");
+
 class Blockchain{
 	constructor(){ // 1. 블록체인 생성자
 	this.chain = [];
@@ -43,6 +45,13 @@ Blockchain.prototype.createNewTransaction = (amount, sender, recipient) =>{
  * 마지막으로 newTransaction이 담길 블록의 넘버를 반환한다. 
  */
 
+
+// Data Hashing -- hashBlock메소드
+Blockchain.prototype.hashBlock = (previousBlockHash, currentBlockData, nonce)=>{
+	const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify( currentBlockData);
+	const hash = sha256(dataAsString);
+	return hash;
+}
 
 
 //ProofOfWork 메소드

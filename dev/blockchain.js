@@ -15,12 +15,17 @@ Blockchain.prototype.createNewBlock
 			hash: hash,
 			previouseBlockHash: previousBlockHash,
 		};
-		this.newTransacion = []; // be init
+		this.pendingTransactions = []; // -- be init
+		// 미결 pending
+		// newTransaction >> pendingTransacions
 		this.chain.push(newBlock);
 		return newBlock;	
 }
+Blockchain.prototype.getLastBlock = ()=>{
+	return this.chain[this.chain.length -1];
+}
 
-Blockchain.prototype.createNewTransacion = (amount, sender, recipient) =>{
+Blockchain.prototype.createNewTransaction = (amount, sender, recipient) =>{
 					/* amount : 송금하는 양 through transaction
 					 * sender : 발송인 주소
 					 * recipient : 수신자 주소
@@ -30,11 +35,29 @@ Blockchain.prototype.createNewTransacion = (amount, sender, recipient) =>{
 		sender: sender,
 		recipient: recipient,
 	}; // 아직은 확정되지 않았다. (미결) --> createNewBlock메소드를 통해 검증/확정/기록된다.
+
+	return newTransaction;
 }
 /* 요약 - createNewTransaction 메소드는 간단히 newTransacion객체를 만들고, 
  * newTransaction 객체를 pendingTransactions 배열에 추가한다.
  * 마지막으로 newTransaction이 담길 블록의 넘버를 반환한다. 
  */
+
+
+
+//ProofOfWork 메소드
+Blockchain.prototype.proofOfWork = (prviousBlockHash, currenBlockData)=>{
+	let nonce = 0;
+	let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+	while (hash.substring(0, 4) !== '0000'{ //hash값 시작이 0000으로 시작할때까지 계속 구문이 돌아간다
+		nonce++;
+		hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+	}
+	return nonce; // 그래야만 nonce 반환
+
+}
+
+
 
 
 module.exports = Blockchain;

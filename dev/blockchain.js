@@ -4,6 +4,7 @@ class Blockchain{
 	constructor(){ // 1. 블록체인 생성자
 	this.chain = [];
 	this.newTransactions = [];
+    this.createNewBlock(100, "0", "0"); //GENESISBLOCK + (Option)
 	} 
 }
 
@@ -15,7 +16,7 @@ Blockchain.prototype.createNewBlock
 			transactions: this.newTransactions,
 			nonce: nonce, 
 			hash: hash,
-			previouseBlockHash: previousBlockHash,
+			previousBlockHash: previousBlockHash,
 		};
 		this.pendingTransactions = []; // -- be init
 		// 미결 pending
@@ -55,7 +56,7 @@ Blockchain.prototype.hashBlock = (previousBlockHash, currentBlockData, nonce)=>{
 
 
 //ProofOfWork 메소드
-Blockchain.prototype.proofOfWork = (prviousBlockHash, currenBlockData)=>{
+Blockchain.prototype.proofOfWork = (previousBlockHash, currenBlockData)=>{
 	let nonce = 0;
 	let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
 	while (hash.substring(0, 4) !== '0000'){ //hash값 시작이 0000으로 시작할때까지 계속 구문이 돌아간다
@@ -65,6 +66,8 @@ Blockchain.prototype.proofOfWork = (prviousBlockHash, currenBlockData)=>{
 	return nonce; // 그래야만 nonce 반환
 
 }
+
+// GenesisBlock 생성 -- class에서 this.createNewBlock(); 추가
 
 
 
